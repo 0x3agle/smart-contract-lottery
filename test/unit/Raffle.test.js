@@ -16,10 +16,12 @@ const { devChains, networkConfig } = require("../../helper-hardhat-config")
               vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock", deployer)
           })
 
-          it("initializes the Raffle Correctly", async () => {
-              const raffleState = await raffle.getRaffleState()
-              const interval = await raffle.getInterval()
-              assert.equal(raffleState.toString(), "0")
-              assert.equal(interval.toString(), networkConfig[chainId]["interval"])
+          describe("Constructor", async () => {
+              it("initializes the Raffle Correctly", async () => {
+                  const raffleState = await raffle.getRaffleState()
+                  const interval = await raffle.getInterval()
+                  assert.equal(raffleState.toString(), "0")
+                  assert.equal(interval.toString(), networkConfig[chainId]["interval"])
+              })
           })
       })
