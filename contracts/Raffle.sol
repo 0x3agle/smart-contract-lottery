@@ -159,7 +159,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         return s_recentWinner;
     }
 
-    function getRaffleStater() public view returns (RaffleState) {
+    function getRaffleState() public view returns (RaffleState) {
         return s_raffleState;
     }
 
@@ -170,7 +170,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     function getLatestTimeStamp() public view returns (uint256) {
         return s_lastTimeStamp;
     }
-    
+
     function getInterval() public view returns (uint256) {
         return i_interval;
     }
@@ -182,5 +182,4 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     function getRequestCofirmations() public pure returns (uint256) {
         return REQUEST_CONFIRMATIONS;
     }
-
 }
