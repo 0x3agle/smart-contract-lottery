@@ -8,16 +8,15 @@ const { devChains, networkConfig } = require("../../helper-hardhat-config")
           let raffle, vrfCoordinatorV2Mock
           const chainId = network.config.chainId
 
-          beforEach(async () => {
+          beforeEach(async () => {
               const deployer = (await getNamedAccounts()).deployer
               await deployments.fixture(["all"])
               raffle = await ethers.getContract("Raffle", deployer)
-              log("Pass")
               vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock", deployer)
           })
 
           describe("Constructor", async () => {
-              it("initializes the Raffle Correctly", async () => {
+              it("Initializes the Raffle Correctly", async () => {
                   const raffleState = await raffle.getRaffleState()
                   const interval = await raffle.getInterval()
                   assert.equal(raffleState.toString(), "0")
