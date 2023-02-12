@@ -88,7 +88,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     function checkUpkeep(
         bytes memory /*checkData*/
     ) public view override returns (bool upkeepNeeded, bytes memory) {
-        bool isOpen = (s_raffleState != RaffleState.OPEN);
+        bool isOpen = (s_raffleState == RaffleState.OPEN);
         bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
         bool hasBalance = address(this).balance > 0;
         bool hasPlayers = s_players.length > 0;
@@ -109,6 +109,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
                 uint256(s_raffleState)
             );
         }
+        s_raffleState = RaffleState.CALCULATING;
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_gasLane,
             i_subscriptionId,
@@ -131,7 +132,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         s_recentWinner = winner;
 
         //Changing Raffle state to calculating so that no one can enter
-        s_raffleState = RaffleState.CALCULATING;
+        s_raffleState = RaffleState.OPEN;
         //Resetting the array
         s_players = new address payable[](0);
         //Resetting the timestamp

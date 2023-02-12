@@ -44,6 +44,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
     })
+    await vrfCoordinatorV2Mock.addConsumer(subscriptionId, raffle.address)
 
     //Can Verify the contract here
 
